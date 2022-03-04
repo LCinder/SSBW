@@ -1,18 +1,8 @@
 
 from mongoengine import connect, Document, EmbeddedDocument
+from mongoengine.fields import EmbeddedDocumentField, StringField, ListField, IntField, DateTimeField, EmailField, GeoPointField, LongField, URLField, EnumField, FloatField
 
-
-class Persons(Document):
-    id = IntField(required = True)
-    firstname = StringField(max_length = 50)
-    lastname = StringField(max_length = 50)
-    email = EmailField(required = True)
-    phone = LongField()
-    birthday = DateTimeField()
-    gender = EnumField(Gender)
-    address = EmbeddedDocumentField(Address)
-    website = URLField()
-    image = StringField()
+connect("data", host="mongo")
 
 
 class Address(EmbeddedDocument):
@@ -23,10 +13,20 @@ class Address(EmbeddedDocument):
     zipCode = StringField(max_length = 50)
     country = StringField(max_length = 50)
     countryCode = StringField(max_length = 10)
-    latitude = FloatField()
-    longitude = FloatField()
+    location = GeoPointField()
 
-
-class Gender(Enum):
+class Gender():
     MALE = "male"
     FEMALE = "female"
+
+
+class Persons(Document):
+    firstname = StringField(max_length = 50)
+    lastname = StringField(max_length = 50)
+    email = EmailField(required = True)
+    phone = LongField()
+    birthday = DateTimeField()
+    #gender = EnumField(Gender, choices=[Gender.MALE, Gender.FEMALE])
+    address = EmbeddedDocumentField(Address)
+    website = URLField()
+    image = StringField()
