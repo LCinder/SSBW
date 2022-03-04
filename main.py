@@ -1,6 +1,7 @@
 
-from model import Persons
+from model import Persons, Address
+
 
 address = Address(street="Pedro Antonio", location=(37.17, -3.6))
-person = Persons(id=1, firstname="FirstName", lastName="LastName", email="email@emailcom", address=address)
+person = Persons(firstname="FirstName", lastname="LastName", email="email@email.com", address=address)
 person.save()
