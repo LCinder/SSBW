@@ -1,32 +1,39 @@
 
 from mongoengine import connect, Document, EmbeddedDocument
 from mongoengine.fields import EmbeddedDocumentField, StringField, ListField, IntField, DateTimeField, EmailField, GeoPointField, LongField, URLField, EnumField, FloatField
+from enum import Enum
 
 connect("data", host="mongo")
 
-
 class Address(EmbeddedDocument):
     street = StringField(max_length = 50)
-    streetName = StringField(max_length = 50)
-    buildingNumber = IntField()
+    street_name = StringField(max_length = 50)
+    building_number = IntField()
     city = StringField(max_length = 50)
-    zipCode = StringField(max_length = 50)
+    zip_code = StringField(max_length = 50)
     country = StringField(max_length = 50)
-    countryCode = StringField(max_length = 10)
+    country_code = StringField(max_length = 10)
     location = GeoPointField()
 
-class Gender():
+    def __str__(self):
+        return self.street + " " + self.city
+
+
+class Gender(Enum):
     MALE = "male"
     FEMALE = "female"
 
 
-class Persons(Document):
+class Person(Document):
     firstname = StringField(max_length = 50)
     lastname = StringField(max_length = 50)
     email = EmailField(required = True)
     phone = LongField()
     birthday = DateTimeField()
-    #gender = EnumField(Gender, choices=[Gender.MALE, Gender.FEMALE])
+    gender = EnumField(Gender)
     address = EmbeddedDocumentField(Address)
     website = URLField()
     image = StringField()
+
+    def __str__(self):
+        return self.firstname + " " + self.lastname + " Address: " + str(self.address)
