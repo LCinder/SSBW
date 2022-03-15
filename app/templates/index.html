@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>SSBW Practica</title>
+        <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
+        <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+        <link rel="stylesheet" href="styles.css">
+    </head>
+    <body>
+        <header class="mui-appbar" style="background-color: #F44336;">
+            <a href="/" style="color: white; font-size: 30px; padding-left: 20px;">SSBW</a>
+        </header>
+        <div class="mui-container">
+            <div class="mui-row">
+                <form class="mui-form">
+                    <div class="mui-textfield">
+                        <input type="text" name="q" placeholder="Enter person name...">
+                        <div class="mui-row">
+                            <div class="mui-col-md-6 mui-col-md-offset-3">
+                                <button type="submit" class="mui-btn mui-btn--danger" style="width: 100%;">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+                <table class="mui-table mui-table--bordered">
+                    {% if persons %}
+                    <thead>
+                        <tr>
+                            <th>Firstname</th>
+                            <th>Lastname</th>
+                            <th>Address</th>
+                            <th>Picture</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for person in persons %}
+                            <tr>
+                                <td>{{person.firstname}}</td>
+                                <td>{{person.lastname}}</td>
+                                <td>{{person.address}}</td>
+<!--                                {% load static %}-->
+<!--                                <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>-->
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                    {% endif %}
+                </table>
+            </div>
+        </div>
+    </body>
+</html>

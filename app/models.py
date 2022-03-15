@@ -1,6 +1,7 @@
 
 from mongoengine import connect, Document, EmbeddedDocument
-from mongoengine.fields import EmbeddedDocumentField, StringField, ListField, IntField, DateTimeField, EmailField, GeoPointField, LongField, URLField, EnumField, FloatField
+from mongoengine.fields import EmbeddedDocumentField, StringField, IntField, DateTimeField, EmailField, GeoPointField,\
+LongField, URLField, EnumField
 from enum import Enum
 
 connect("data", host="mongo")
@@ -16,7 +17,7 @@ class Address(EmbeddedDocument):
     location = GeoPointField()
 
     def __str__(self):
-        return self.street + " " + self.city
+        return self.city + ", " + self.country + " (" + self.country_code + ")"
 
 
 class Gender(Enum):
