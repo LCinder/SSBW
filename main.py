@@ -1,5 +1,5 @@
 
-from model import Person, Address
+from app.models import Person, Address
 import requests, json, os
 
 
