@@ -6,10 +6,11 @@
         <div class="mui-row">
             <table class="mui-table mui-table--bordered">
                 <form class="mui-form" method="post">
+                    {% csrf_token %}
                     {{ form.as_table }}
+                    <button type="submit" class="mui-btn mui-btn--danger">Add</button>
                 </form>
             </table>
-            <button type="submit" class="mui-btn mui-btn--danger">Add</button>
         </div>
     </div>
 

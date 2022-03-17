@@ -31,9 +31,10 @@ def add(request):
         form = models.PersonForm(data=request.POST)
 
         if form.is_valid():
-            firstname = form.firstname
-            lastname = form.lastname
-            email = form.email
+            print(form.cleaned_data)
+            firstname = form["firstname"]
+            lastname = form["lastname"]
+            email = form["email"]
 
             person = Person(firstname=firstname, lastname=lastname, email=email)
             person.save()
