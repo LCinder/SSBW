@@ -5,17 +5,20 @@
         <title>SSBW Practica</title>
         <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
         <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link rel="stylesheet" href="styles.css">
     </head>
     <body>
         <header class="mui-appbar" style="background-color: #F44336;">
-            <a href="/" style="color: white; font-size: 30px; padding-left: 20px;">SSBW</a>
+            <a href="{% url 'index' %}" style="color: white; font-size: 30px; padding-left: 20px;">SSBW</a>
         </header>
+
+        {% block content %}
         <div class="mui-container">
             <div class="mui-row">
                 <form class="mui-form">
                     <div class="mui-textfield">
-                        <input type="text" name="q" placeholder="Enter person name...">
+                        <input type="text" name="q" placeholder="Enter person name...">  <!-- form action="{% url 'index' %}"  method="post", input  name="q"  -->
                         <div class="mui-row">
                             <div class="mui-col-md-6 mui-col-md-offset-3">
                                 <button type="submit" class="mui-btn mui-btn--danger" style="width: 100%;">Search</button>
@@ -31,6 +34,7 @@
                             <th>Lastname</th>
                             <th>Address</th>
                             <th>Picture</th>
+                            <th>Options</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,14 +43,20 @@
                                 <td>{{person.firstname}}</td>
                                 <td>{{person.lastname}}</td>
                                 <td>{{person.address}}</td>
-<!--                                {% load static %}-->
-<!--                                <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>-->
+                                {% load static %}
+                                <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>
+                                <td>
+                                    <button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button>
+                                    <button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-xmark"></i></button>
+                                </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                     {% endif %}
                 </table>
+                    <td><button type="submit" class="mui-btn mui-btn--danger"><a href="{% url 'add' %}"><i class="fa-solid fa-plus"></i></a></button></td>
             </div>
         </div>
+        {% endblock %}
     </body>
 </html>

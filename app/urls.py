@@ -18,5 +18,9 @@ from app import views
 
 # /.../
 urlpatterns = [
-    path("", views.home)
+    path("", views.home, name="index"),
+    path("add", views.add, name="add"),
+    path("detail", views.detail, name="detail/<id>"),
+    path("edit", views.edit, name="edit/<id>"),
+    path("delete", views.delete, name="delete/<id>")
 ]

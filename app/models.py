@@ -3,6 +3,7 @@ from mongoengine import connect, Document, EmbeddedDocument
 from mongoengine.fields import EmbeddedDocumentField, StringField, IntField, DateTimeField, EmailField, GeoPointField,\
 LongField, URLField, EnumField
 from enum import Enum
+from django import forms
 
 connect("data", host="mongo")
 
@@ -38,3 +39,8 @@ class Person(Document):
 
     def __str__(self):
         return self.firstname + " " + self.lastname + " Address: " + str(self.address)
+
+class PersonForm(forms.Form):
+    firstname = forms.CharField()
+    lastname = forms.CharField()
+    email = forms.EmailField()

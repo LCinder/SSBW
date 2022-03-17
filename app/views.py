@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from . import models
 import re
-from web import settings
+
 
 # Create your views here.
 from .models import Person
@@ -20,5 +20,45 @@ def home(request):
 
     objects = {
         "persons": persons
+    }
+    return render(request, "index.html", objects)
+
+
+def add(request):
+    form = models.PersonForm()
+
+    if request.method == "POST":
+        form = models.PersonForm(data=request.POST)
+
+        if form.is_valid():
+            firstname = form.firstname
+            lastname = form.lastname
+            email = form.email
+
+            person = Person(firstname=firstname, lastname=lastname, email=email)
+            person.save()
+
+    objects = {
+        "form": form
+    }
+    return render(request, "add.html", objects)
+
+
+def detail(request, id):
+    objects = {
+        "id": id
+    }
+    return render(request, "index.html", objects)
+
+
+def edit(request, id):
+    objects = {
+        "id": id
+    }
+    return render(request, "index.html", objects)
+
+def delete(request, id):
+    objects = {
+        "id": id
     }
     return render(request, "index.html", objects)

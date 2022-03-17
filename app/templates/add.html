@@ -1,0 +1,16 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <div class="mui-container">
+        <div class="mui-row">
+            <table class="mui-table mui-table--bordered">
+                <form class="mui-form" method="post">
+                    {{ form.as_table }}
+                </form>
+            </table>
+            <button type="submit" class="mui-btn mui-btn--danger">Add</button>
+        </div>
+    </div>
+
+{% endblock %}
