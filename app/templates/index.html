@@ -6,11 +6,11 @@
         <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
         <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="styles.css">
+        <link rel="stylesheet" href="../static/styles.css">
     </head>
     <body>
         <header class="mui-appbar" style="background-color: #F44336;">
-            <a href="{% url 'index' %}" style="color: white; font-size: 30px; padding-left: 20px;">SSBW</a>
+            <a href="{% url 'index' %}" style="color: white; font-size: 30px; padding-left: 30px;">SSBW</a>
         </header>
 
         {% block content %}
@@ -46,15 +46,15 @@
                                 {% load static %}
                                 <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>
                                 <td>
-                                    <button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button>
-                                    <button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-xmark"></i></button>
+                                    <a href="{% url 'edit' person.email %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{% url 'delete' person.email %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-xmark"></i></button></a>
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                     {% endif %}
                 </table>
-                    <td><button type="submit" class="mui-btn mui-btn--danger"><a href="{% url 'add' %}"><i class="fa-solid fa-plus"></i></a></button></td>
+                <td><a href="{% url 'add' %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger" href><i class="fa-solid fa-plus"></i></button></a></td>
             </div>
         </div>
         {% endblock %}

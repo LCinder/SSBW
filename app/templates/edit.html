@@ -1,0 +1,17 @@
+{% extends "index.html" %}
+
+{% block content %}
+
+    <div class="mui-container">
+        <div class="mui-row">
+            <table class="mui-table mui-table--bordered">
+                <form class="mui-form" method="post">
+                    {% csrf_token %}
+                    {{ form.as_table }}
+                    <button type="submit" class="mui-btn mui-btn--danger">Edit</button>
+                </form>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}
