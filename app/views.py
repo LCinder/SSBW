@@ -48,40 +48,44 @@ def add(request):
 
 
 def detail(request, id):
+    person = Person.objects.get(id=id)
+
     objects = {
-        "id": id
+        "person": person
     }
-    return render(request, "index.html", objects)
+    return render(request, "detail.html", objects)
 
 
-def edit(request, email):
+def edit(request, id):
+    person = Person.objects.get(id=id)
+
     if request.method == "GET":
         form = models.PersonForm()
 
     if request.method == "POST":
-        person = Person.objects(email=email)
-        form = models.PersonForm(data=request.POST, instance=person)
+        form = models.PersonForm(data=request.POST)
 
         if form.is_valid():
             firstname = form.cleaned_data["firstname"]
             lastname = form.cleaned_data["lastname"]
-            email2change = form.cleaned_data["email"]
+            email = form.cleaned_data["email"]
 
             person.firstname = firstname
             person.lastname = lastname
-            person.email = email2change
+            person.email = email
             person.save()
 
             return redirect("/")
 
     objects = {
-        "form": form
+        "form": form,
+        "person": person
     }
     return render(request, "edit.html", objects)
 
 
-def delete(request, email):
-    person = Person.objects(email=email)
+def delete(request, id):
+    person = Person.objects(id=id)
     person.delete()
 
     objects = {

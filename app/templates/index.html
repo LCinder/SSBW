@@ -6,10 +6,11 @@
         <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
         <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="../static/styles.css">
+        {% load static %}
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
     <body>
-        <header class="mui-appbar" style="background-color: #F44336;">
+        <header class="mui-appbar" style="background-color: rgb(244,67,54);">
             <a href="{% url 'index' %}" style="color: white; font-size: 30px; padding-left: 30px;">SSBW</a>
         </header>
 
@@ -34,20 +35,20 @@
                             <th>Lastname</th>
                             <th>Address</th>
                             <th>Picture</th>
-                            <th>Options</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for person in persons %}
                             <tr>
-                                <td>{{person.firstname}}</td>
+                                <td><a href="{% url 'detail' person.id %}" style="color: inherit">{{person.firstname}}</a></td>
                                 <td>{{person.lastname}}</td>
                                 <td>{{person.address}}</td>
                                 {% load static %}
                                 <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>
                                 <td>
-                                    <a href="{% url 'edit' person.email %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <a href="{% url 'delete' person.email %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-xmark"></i></button></a>
+                                    <a href="{% url 'edit' person.id %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                    <a href="{% url 'delete' person.id %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-xmark"></i></button></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -59,4 +60,11 @@
         </div>
         {% endblock %}
     </body>
+
+    <style>
+        tr:hover {
+            background-color: rgba(244, 67, 54, 0.65);
+            transition: 0.7s;
+        }
+    </style>
 </html>

@@ -43,7 +43,7 @@ class Person(Document):
 class PersonForm(forms.Form):
     firstname = forms.CharField()
     lastname = forms.CharField()
-    email = forms.EmailField()
+    email = forms.EmailField(required=True)
     #phone = forms.NumberInput()
     #birthday = forms.DateTimeField()
     #gender = EnumField(Gender)

@@ -20,7 +20,7 @@ from app import views
 urlpatterns = [
     path("", views.home, name="index"),
     path("add", views.add, name="add"),
-    path("detail", views.detail, name="detail/<id>"),
-    path("edit/<email>", views.edit, name="edit"),
-    path("delete/<email>", views.delete, name="delete")
+    path("detail/<id>", views.detail, name="detail"),
+    path("edit/<id>", views.edit, name="edit"),
+    path("delete/<id>", views.delete, name="delete")
 ]
