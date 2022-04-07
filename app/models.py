@@ -4,8 +4,16 @@ from mongoengine.fields import EmbeddedDocumentField, StringField, IntField, Dat
 LongField, URLField, EnumField
 from enum import Enum
 from django import forms
+import logging
 
-connect("data", host="mongo")
+
+logger = logging.getLogger(__name__)
+
+try:
+    connect("data", host="mongo")
+except ConnectionError as error:
+    logger.error("Error connecting: {}".format(error))
+
 
 class Address(EmbeddedDocument):
     street = StringField(max_length = 50)
@@ -44,9 +52,9 @@ class PersonForm(forms.Form):
     firstname = forms.CharField()
     lastname = forms.CharField()
     email = forms.EmailField(required=True)
+    image = forms.FileField(widget=forms.FileInput())
     #phone = forms.NumberInput()
     #birthday = forms.DateTimeField()
     #gender = EnumField(Gender)
     #address = EmbeddedDocumentField(Address)
     #website = forms.URLField()
-    #image = forms.CharField()

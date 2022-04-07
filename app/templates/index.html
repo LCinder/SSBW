@@ -11,7 +11,25 @@
     </head>
     <body>
         <header class="mui-appbar" style="background-color: rgb(244,67,54);">
-            <a href="{% url 'index' %}" style="color: white; font-size: 30px; padding-left: 30px;">SSBW</a>
+            <div class="mui-container">
+              <table style="width: 100%">
+                <tr class="mui--appbar-height">
+                  <td class="mui--text-title"><a href="{% url 'index' %}" style="color: white; font-size: 30px; padding-left: 30px;">SSBW</a></td>
+                  <td class="mui--text-right">
+                    <ul class="mui-list--inline mui--text-body2">
+                        {% if user.is_authenticated %}
+                            <li>Hi {{user.username}}!</li>
+                            <li><a href="/accounts/logout" style="color: white;">Logout</a></li>
+                        {% else %}
+                            <li><a href="/accounts/login" style="color: white;">Login</a></li>
+                        {% endif %}
+                    </ul>
+                  </td>
+                </tr>
+              </table>
+            </div>
+
+
         </header>
 
         {% block content %}

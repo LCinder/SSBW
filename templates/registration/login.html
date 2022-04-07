@@ -1,0 +1,20 @@
+
+
+{% extends "index.html" %}
+
+{% block content %}
+<form method="post" class="mui-form" style="display: block; text-align: center; margin: auto">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Log In</button>
+
+    <legend>Login</legend>
+
+    {% for field in form %}
+        <div class="mui-textfield">
+            {{field.label_tag}}
+            <input type="text" value="{{field.value}}">
+        </div>
+    {% endfor %}
+</form>
+{% endblock %}
