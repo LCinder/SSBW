@@ -6,6 +6,8 @@
         <link href="//cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
         <script src="//cdn.muicss.com/mui-latest/js/mui.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.0/css/all.min.css" integrity="sha512-10/jx2EXwxxWqCLX/hHth/vu2KY3jCF70dCQB8TSgNjbCVAC/8vai53GfMDrO2Emgwccf2pJqxct9ehpzG+MTw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
         {% load static %}
         <link rel="stylesheet" href="{% static 'styles.css' %}">
     </head>
@@ -28,9 +30,17 @@
                 </tr>
               </table>
             </div>
-
-
         </header>
+<div class="modal modal-effect-blur">
+    <div class="modal-content">
+        <h3>Are you sure you want to delete?</h3>
+        <div>
+            <button class="modal_delete">Delete</button>
+            <button class="modal_delete_cancel">Cancel</button>
+        </div>
+    </div>
+</div>
+
 
         {% block content %}
         <div class="mui-container">
@@ -58,7 +68,7 @@
                     </thead>
                     <tbody>
                         {% for person in persons %}
-                            <tr>
+                            <tr id="{{person.id}}">
                                 <td><a href="{% url 'detail' person.id %}" style="color: inherit">{{person.firstname}}</a></td>
                                 <td>{{person.lastname}}</td>
                                 <td>{{person.address}}</td>
@@ -66,7 +76,8 @@
                                 <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>
                                 <td>
                                     <a href="{% url 'edit' person.id %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <a href="{% url 'delete' person.id %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger"><i class="fa-solid fa-xmark"></i></button></a>
+                                    <a href="#" style="color: white" idd="{{person.id}}"><button type="submit" class="mui-btn mui-btn--danger delete"><i class="fa-solid fa-xmark"></i></button></a>
+
                                 </td>
                             </tr>
                         {% endfor %}
@@ -85,4 +96,33 @@
             transition: 0.7s;
         }
     </style>
+
+    <script>
+        $(function() {
+            $(".modal").hide()
+
+            $(".modal_delete").attr("idd", idd);
+
+            $(".delete").click(function() {
+                $(".modal").show()
+            });
+
+            $(".modal_delete").click(function() {
+                let idd = $(this).attr("idd");
+                alert(idd);
+                $.ajax({
+                    url: `/delete/${idd}`,
+                    success: function(data) {
+                        alert(data);
+                        $(`#${idd}`).remove()
+                        $(".modal").hide()
+                    }
+                })
+            });
+
+            $(".modal_delete_cancel").click(function() {
+                $(".modal").hide()
+            });
+        })
+    </script>
 </html>

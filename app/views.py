@@ -1,4 +1,5 @@
 from django.core.files.storage import FileSystemStorage
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from . import models
 import re
@@ -29,7 +30,7 @@ def home(request):
     return render(request, "index.html", objects)
 
 
-@login_required
+#@login_required
 def add(request):
     form = models.PersonForm()
 
@@ -105,15 +106,16 @@ def edit(request, id):
     return render(request, "edit.html", objects)
 
 
-@login_required
+#@login_required
 def delete(request, id):
     person = Person.objects(id=id)
     person.delete()
     logger.info("The person was deleted")
 
     objects = {
+        "delete": id
     }
-    return redirect("/")
+    return JsonResponse(objects)
 
 
 def login(request):
