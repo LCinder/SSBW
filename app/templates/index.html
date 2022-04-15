@@ -85,15 +85,20 @@
                                 {% load static %}
                                 <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>
                                 <td>
-                                    <a href="{% url 'edit' person.id %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <a href="#" style="color: white" idd="{{person.id}}" class="idd"><button type="submit" class="mui-btn mui-btn--danger delete"><i class="fa-solid fa-xmark"></i></button></a>
+                                    {% if user.is_superuser %}
+                                        <a href="{% url 'edit' person.id %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                                        <a href="#" style="color: white" idd="{{person.id}}" class="idd"><button type="submit" class="mui-btn mui-btn--danger delete"><i class="fa-solid fa-xmark"></i></button></a>
+                                    {% endif %}
                                 </td>
                             </tr>
                         {% endfor %}
                     </tbody>
                     {% endif %}
                 </table>
-                <td><a href="{% url 'add' %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger" href><i class="fa-solid fa-plus"></i></button></a></td>
+
+                {% if user.is_superuser %}
+                    <td><a href="{% url 'add' %}" style="color: white"><button type="submit" class="mui-btn mui-btn--danger" href><i class="fa-solid fa-plus"></i></button></a></td>
+                {% endif %}
             </div>
         </div>
         {% endblock %}
