@@ -1,3 +1,7 @@
+import json
+import os
+
+import requests
 from django.core.files.storage import FileSystemStorage
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
@@ -5,7 +9,7 @@ from . import models
 import re
 import logging
 from django.contrib.auth.decorators import login_required
-from .models import Person
+from .models import Person, Address
 
 logger = logging.getLogger(__name__)
 
@@ -143,3 +147,42 @@ def delete(request, id):
 
 def login(request):
     return render(request, "login.html", {})
+
+
+def load_data(request):
+    n = 0
+    n_persons = 100
+
+    res = requests.get("https://fakerapi.it/api/v1/persons?_quantity={}".format(n_persons))
+    data = res.json()
+
+    for element in data["data"]:
+        address = Address(street=element["address"]["street"], street_name=element["address"]["streetName"],
+        building_number=element["address"]["buildingNumber"], city=element["address"]["city"],
+        zip_code=element["address"]["zipcode"], country=element["address"]["country"],
+        country_code=element["address"]["county_code"], location=[element["address"]["latitude"], element["address"]["longitude"]])
+
+        person = Person(firstname=element["firstname"], lastname=element["lastname"],
+        email=element["email"], phone=element["phone"], birthday=element["birthday"], gender=element["gender"],
+        website=element["website"], address=address)
+
+        person.save()
+
+        person_name = str(person.id)
+        print(person.id)
+
+        image = requests.get("https://thispersondoesnotexist.com/image")
+        if image.status_code == 200:
+            with open("data/img/" + person_name, "wb") as f:
+                f.write(image.content)
+            os.rename("data/img/" + person_name, "data/img/" + person_name + ".jpg")
+        n += 1
+
+        person.image = "data/img/" + str(person_name)
+        print(element)
+        print("\n")
+
+        person.save()
+
+
+    return redirect("/")
