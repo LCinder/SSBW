@@ -10,6 +10,9 @@
 
         {% load static %}
         <link rel="stylesheet" href="{% static 'styles.css' %}">
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.css">
+        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.js"></script>
+
     </head>
     <body>
         <header class="mui-appbar" style="background-color: rgb(244,67,54);">
@@ -31,15 +34,18 @@
               </table>
             </div>
         </header>
-<div class="modal modal-effect-blur">
-    <div class="modal-content">
-        <h3>Are you sure you want to delete?</h3>
-        <div>
-            <button class="modal_delete">Delete</button>
-            <button class="modal_delete_cancel">Cancel</button>
+
+
+
+        <div class="modal modal-effect-blur">
+            <div class="modal-content">
+                <h3>Are you sure you want to delete?</h3>
+                <div>
+                    <button type="submit" class="mui-btn mui-btn--danger modal_delete">Delete</button>
+                    <button type="submit" class="mui-btn mui-btn--danger modal_delete_cancel">Cancel</button>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
 
 
         {% block content %}
@@ -76,8 +82,7 @@
                                 <td><img src="{% static person.image|add:'.jpg' %}" alt="" width="50px"></td>
                                 <td>
                                     <a href="{% url 'edit' person.id %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                    <a href="#" style="color: white" idd="{{person.id}}"><button type="submit" class="mui-btn mui-btn--danger delete"><i class="fa-solid fa-xmark"></i></button></a>
-
+                                    <a href="#" style="color: white" idd="{{person.id}}" class="idd"><button type="submit" class="mui-btn mui-btn--danger delete"><i class="fa-solid fa-xmark"></i></button></a>
                                 </td>
                             </tr>
                         {% endfor %}
@@ -95,25 +100,40 @@
             background-color: rgba(244, 67, 54, 0.65);
             transition: 0.7s;
         }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            padding-top: 10%;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 90%;
+        }
     </style>
 
     <script>
-        $(function() {
+        $(document).ready(function() {
             $(".modal").hide()
-
-            $(".modal_delete").attr("idd", idd);
 
             $(".delete").click(function() {
                 $(".modal").show()
             });
 
             $(".modal_delete").click(function() {
-                let idd = $(this).attr("idd");
-                alert(idd);
+                let idd = $(".idd").attr("idd");
+                console.log(idd)
                 $.ajax({
                     url: `/delete/${idd}`,
                     success: function(data) {
-                        alert(data);
                         $(`#${idd}`).remove()
                         $(".modal").hide()
                     }
@@ -123,6 +143,8 @@
             $(".modal_delete_cancel").click(function() {
                 $(".modal").hide()
             });
-        })
+
+            $(".mui-table").DataTable();
+        });
     </script>
 </html>
