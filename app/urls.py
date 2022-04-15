@@ -23,5 +23,6 @@ urlpatterns = [
     path("detail/<id>", views.detail, name="detail"),
     path("edit/<id>", views.edit, name="edit"),
     path("delete/<id>", views.delete, name="delete"),
+    path("persons/", views.load_data, name="persons"),
     path("accounts/", include("django.contrib.auth.urls")),
 ]
