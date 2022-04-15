@@ -151,7 +151,7 @@ def login(request):
 
 def load_data(request):
     n = 0
-    n_persons = 100
+    n_persons = 10
 
     res = requests.get("https://fakerapi.it/api/v1/persons?_quantity={}".format(n_persons))
     data = res.json()
