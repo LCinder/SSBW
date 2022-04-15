@@ -35,7 +35,11 @@
             </div>
         </header>
 
-
+        {% if user.is_superuser %}
+            <form action="persons">
+                <button type="submit" class="mui-btn mui-btn--danger">Load Persons</button>
+            </form>
+        {% endif %}
 
         <div class="modal modal-effect-blur">
             <div class="modal-content">
@@ -61,7 +65,7 @@
                         </div>
                     </div>
                 </form>
-                <table class="mui-table mui-table--bordered">
+                <table class="mui-table mui-table--bordered hover">
                     {% if persons %}
                     <thead>
                         <tr>
