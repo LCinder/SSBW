@@ -25,4 +25,7 @@ urlpatterns = [
     path("delete/<id>", views.delete, name="delete"),
     path("persons/", views.load_data, name="persons"),
     path("accounts/", include("django.contrib.auth.urls")),
+    path("auth/", include("rest_framework.urls")),
+    path("api/person", views.person_list),
+    path("api/person/<id>", views.person_detail),
 ]
