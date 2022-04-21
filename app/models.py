@@ -4,6 +4,7 @@ from mongoengine.fields import EmbeddedDocumentField, StringField, IntField, Dat
 from enum import Enum
 from django import forms
 import logging
+from rest_framework import routers, serializers, viewsets
 
 logger = logging.getLogger(__name__)
 
@@ -57,3 +58,12 @@ class PersonForm(forms.Form):
     # gender = EnumField(Gender)
     # address = EmbeddedDocumentField(Address)
     # website = forms.URLField()
+
+
+class PersonSerializer(serializers.Serializer):
+    id = serializers.CharField(required=False)
+    firstname = serializers.CharField()
+    lastname = serializers.CharField()
+    email = serializers.EmailField()
+    #gender = serializers.ChoiceField(choices=[("male", "Hombre"), ("female", "Mujer")])
+    image = serializers.CharField()
