@@ -4,6 +4,7 @@
 
 {% block content %}
     <form method="post" class="mui-form" style="display: block; text-align: center; margin: auto; width: 50%; padding-top: 10%;">
+
         {% csrf_token %}
         <legend>Login</legend>
 
@@ -16,5 +17,20 @@
         {% endfor %}
 
         <button type="submit" class="mui-btn mui-btn--danger modal_delete">Log In</button>
+
+
+        <br>
+        <br>
+        <strong>admin</strong>
+        <br>
+        <strong>user:</strong> <p>admin</p>
+        <strong>password:</strong> <p>admin</p>
+
+        <br>
+        <strong>regular user</strong>
+        <br>
+        <strong>user:</strong> <p>diegohm98</p>
+        <strong>password:</strong> <p>diegohm98</p>
+
     </form>
 {% endblock %}
