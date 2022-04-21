@@ -3,13 +3,15 @@ import os
 
 import requests
 from django.core.files.storage import FileSystemStorage
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import render, redirect
 from . import models
 import re
 import logging
 from django.contrib.auth.decorators import login_required
-from .models import Person, Address
+from .models import Person, Address, PersonSerializer
+from rest_framework.parsers import JSONParser
+from django.views.decorators.csrf import csrf_exempt
 
 logger = logging.getLogger(__name__)
 
@@ -158,13 +160,15 @@ def load_data(request):
 
     for element in data["data"]:
         address = Address(street=element["address"]["street"], street_name=element["address"]["streetName"],
-        building_number=element["address"]["buildingNumber"], city=element["address"]["city"],
-        zip_code=element["address"]["zipcode"], country=element["address"]["country"],
-        country_code=element["address"]["county_code"], location=[element["address"]["latitude"], element["address"]["longitude"]])
+                          building_number=element["address"]["buildingNumber"], city=element["address"]["city"],
+                          zip_code=element["address"]["zipcode"], country=element["address"]["country"],
+                          country_code=element["address"]["county_code"],
+                          location=[element["address"]["latitude"], element["address"]["longitude"]])
 
         person = Person(firstname=element["firstname"], lastname=element["lastname"],
-        email=element["email"], phone=element["phone"], birthday=element["birthday"], gender=element["gender"],
-        website=element["website"], address=address)
+                        email=element["email"], phone=element["phone"], birthday=element["birthday"],
+                        gender=element["gender"],
+                        website=element["website"], address=address)
 
         person.save()
 
@@ -184,5 +188,66 @@ def load_data(request):
 
         person.save()
 
-
     return redirect("/")
+
+
+@csrf_exempt
+def person_list(request):
+    if request.method == 'GET':
+        persons = Person.objects.all()
+        serializer = PersonSerializer(persons, many=True)
+
+        return JsonResponse(serializer.data, safe=False)
+
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = PersonSerializer(data=data)
+
+        if serializer.is_valid():
+            firstname = serializer.data["firstname"]
+            lastname = serializer.data["lastname"]
+            email = serializer.data["email"]
+            person = Person(firstname=firstname, lastname=lastname, email=email)
+            person.save()
+
+            return JsonResponse(serializer.data, status=201)
+
+        return JsonResponse(serializer.errors, status=400)
+
+
+@csrf_exempt
+def person_detail(request, id):
+    try:
+        person = Person.objects.get(id=id)
+    except Person.DoesNotExist:
+        return HttpResponse(status=404)
+
+    if request.method == 'GET':
+        serializer = PersonSerializer(person)
+
+        return JsonResponse(serializer.data)
+
+    elif request.method == 'PUT':
+        data = JSONParser().parse(request)
+        serializer = PersonSerializer(data=data)
+
+        if serializer.is_valid():
+            firstname = serializer.data["firstname"]
+            lastname = serializer.data["lastname"]
+            email = serializer.data["email"]
+            print(serializer.data)
+            person.firstname = firstname
+            person.lastname = lastname
+            person.email = email
+            person.save()
+
+            serializer = PersonSerializer(person, data=data)
+
+            if serializer.is_valid():
+                return JsonResponse(serializer.data)
+
+        return JsonResponse(serializer.errors, status=400)
+
+    elif request.method == 'DELETE':
+        person.delete()
+        return HttpResponse(status=204)
