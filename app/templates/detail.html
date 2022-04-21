@@ -2,12 +2,11 @@
 
 {% block content %}
 
-    <div class="mui-container">
-        <div class="mui-row">
-            <table class="mui-table mui-table--bordered">
-                <tr>{{person}}</tr>
-            </table>
-        </div>
+    <div class="mui-container" style=" margin: 5%; display: flex; text-align: center; justify-content: center; border: 2px solid rgba(244, 67, 54, 0.65)">
+        <h3>{{person.firstname}} {{person.lastname}}</h3>
+
+        {% load static %}
+        <img src="{% static person.image|add:'.jpg' %}" alt="image" style="width: 20%; margin: 5em">
     </div>
 
 {% endblock %}

@@ -87,7 +87,7 @@
                                 <td>
                                     {% if user.is_superuser %}
                                         <a href="{% url 'edit' person.id %}" style="color: white"><button class="mui-btn mui-btn--danger"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                                        <a href="#" style="color: white" idd="{{person.id}}" class="idd"><button type="submit" class="mui-btn mui-btn--danger delete"><i class="fa-solid fa-xmark"></i></button></a>
+                                        <a href="#" style="color: white" class="idd"><button type="submit" class="mui-btn mui-btn--danger delete" idd="{{person.id}}"><i class="fa-solid fa-xmark"></i></button></a>
                                     {% endif %}
                                 </td>
                             </tr>
@@ -134,11 +134,14 @@
             $(".modal").hide()
 
             $(".delete").click(function() {
+                let idd = $(this).attr("idd");
+                $(".modal_delete").attr("idd", idd);
+
                 $(".modal").show()
             });
 
             $(".modal_delete").click(function() {
-                let idd = $(".idd").attr("idd");
+                let idd = $(this).attr("idd");
                 console.log(idd)
                 $.ajax({
                     url: `/delete/${idd}`,
