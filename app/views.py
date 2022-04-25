@@ -177,9 +177,9 @@ def load_data(request):
 
         image = requests.get("https://thispersondoesnotexist.com/image")
         if image.status_code == 200:
-            with open("data/img/" + person_name, "wb") as f:
+            with open("app/static/data/img/" + person_name, "wb") as f:
                 f.write(image.content)
-            os.rename("data/img/" + person_name, "data/img/" + person_name + ".jpg")
+            os.rename("app/static/data/img/" + person_name, "app/static/data/img/" + person_name + ".jpg")
         n += 1
 
         person.image = "data/img/" + str(person_name)
