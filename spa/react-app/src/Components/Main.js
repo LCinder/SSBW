@@ -1,31 +1,54 @@
 
-    import * as React from 'react';
-    import CssBaseline from '@mui/material/CssBaseline';
-    import Box from '@mui/material/Box';
-    import Typography from '@mui/material/Typography';
-    import Container from '@mui/material/Container';
-    import Link from '@mui/material/Link';
-    import Table from "./Table"
-    import {useState} from 'react'
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import Link from '@mui/material/Link';
+import Table from "./Table"
+import {useState} from 'react'
+
+import ReactDOM from "react-dom/client";
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
+import FetchDog from "./FetchDog";
+
+const root = ReactDOM.createRoot(
+  document.getElementById("root")
+);
+root.render(
+    <React.StrictMode>
+      <BrowserRouter>
+          <Routes>
+              <Route path="/" element={<Main/>}>
+                <Route path="dog" element={<FetchDog/>}/>
+              </Route>
+          </Routes>
+      </BrowserRouter>
+    </React.StrictMode>
+);
 
 
-    function createData(name, status) {
+function createData(name, status) {
     return { name, status };
-    }
+}
 
 
-    function Copyright() {
+function Copyright() {
     return (
-    <Typography variant="body2" color="text.secondary">
-      {'Copyright © '}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
+        <Typography variant="body2" color="text.secondary">
+          {'Copyright © '}
+          <Link color="inherit" href="https://mui.com/">
+            Your Website
+          </Link>{' '}
+          {new Date().getFullYear()}
+          {'.'}
+        </Typography>
     );
-    }
+}
 
 export default function Main() {
     const [data, setData] = useState([
@@ -40,10 +63,13 @@ export default function Main() {
         console.log(`${index} - ${event.target.checked}`)
         const newData = [...data]
         const statusIncomplete = "Incomplete"
-        const statusComplete = "Incomplete"
+        const statusComplete = "Complete"
 
         if (!event.target.checked)
             newData[index].status = statusIncomplete
+        else
+            newData[index].status = statusComplete
+
         setData(newData)
     }
 

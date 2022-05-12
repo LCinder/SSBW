@@ -9,6 +9,13 @@ import Paper from '@mui/material/Paper';
 import Switch from '@mui/material/Switch';
 
 
+function switchChecked(status, change, index) {
+  if (status === "Complete")
+    return (<Switch onChange={(event)=>change(index, event)} defaultChecked/>)
+  else
+    return (<Switch onChange={(event)=>change(index, event)}/>)
+}
+
 export default function BasicTable(props) {
   const data = props.data;
   const change = props.onChange;
@@ -32,11 +39,7 @@ export default function BasicTable(props) {
                 {row.name}
               </TableCell>
               <TableCell align="right">{row.status}</TableCell>
-              <TableCell align="right">
-                {if (row.status == "Complete")
-                  <Switch onChange={(event)=>change(index, event)} defaultChecked/>
-                  else
-                  <Switch onChange={(event)=>change(index, event)}/>}
+              <TableCell align="right">{switchChecked(row.status, change, index)}
               </TableCell>
             </TableRow>
           ))}
