@@ -66,4 +66,4 @@ class PersonSerializer(serializers.Serializer):
     lastname = serializers.CharField()
     email = serializers.EmailField()
     #gender = serializers.ChoiceField(choices=[("male", "Hombre"), ("female", "Mujer")])
-    image = serializers.CharField()
+    image = serializers.CharField(required=False)

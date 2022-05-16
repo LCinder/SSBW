@@ -223,6 +223,7 @@ def person_detail(request, id):
         return HttpResponse(status=404)
 
     if request.method == 'GET':
+        print(request)
         serializer = PersonSerializer(person)
 
         return JsonResponse(serializer.data)
@@ -235,7 +236,6 @@ def person_detail(request, id):
             firstname = serializer.data["firstname"]
             lastname = serializer.data["lastname"]
             email = serializer.data["email"]
-            print(serializer.data)
             person.firstname = firstname
             person.lastname = lastname
             person.email = email
