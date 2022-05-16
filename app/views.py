@@ -251,3 +251,10 @@ def person_detail(request, id):
     elif request.method == 'DELETE':
         person.delete()
         return HttpResponse(status=204)
+
+
+def person_image(request, id):
+    print(os.listdir())
+    image = "app/static/data/img/{}.jpg".format(id)
+    with open(image, "rb") as f:
+        return HttpResponse(f.read(), content_type="image/jpg")

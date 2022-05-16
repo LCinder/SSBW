@@ -28,4 +28,6 @@ urlpatterns = [
     path("auth/", include("rest_framework.urls")),
     path("api/person", views.person_list),
     path("api/person/<id>", views.person_detail),
+    path("api/person/<id>/image", views.person_image),
+    path("api/load", views.load_data),
 ]
