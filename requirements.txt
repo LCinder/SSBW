@@ -3,3 +3,4 @@ mongoengine
 requests
 djangorestframework
 python-gettext
+django-cors-headers
