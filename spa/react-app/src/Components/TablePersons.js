@@ -31,7 +31,7 @@ export default function TablePersons(props) {
     if (isLoading)
       return (
         <div>
-          <CircularProgress color={"red"}/>
+          <CircularProgress/>
           {loadPersons()}
         </div>
       )
