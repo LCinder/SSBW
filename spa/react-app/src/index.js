@@ -1,14 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
-import App from './App';
 import Main from './Components/Main';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Route, Routes} from "react-router-dom";
+import FetchPersons from "./Components/FetchPersons";
+import PersonForm from "./Components/PersonForm";
+import FetchPerson from "./Components/FetchPerson";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Main />
+    <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Main/>}/>
+            <Route path="persons" element={<FetchPersons/>}>
+            </Route>
+            <Route path="/persons/:personId" element={<FetchPerson type={"get"}/>}/>
+            <Route path="/persons/:personId/edit" element={<FetchPerson type={"put"}/>}/>
+            <Route path="/persons/add" element={<FetchPerson type={"post"}/>}/>
+          </Routes>
+      </BrowserRouter>
   </React.StrictMode>
 );
 
