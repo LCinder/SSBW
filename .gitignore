@@ -130,6 +130,10 @@ dmypy.json
 
 .idea/
 
-#db/
+db/
+
+db.sqlite3
 
 *.jpg
+
+data/
