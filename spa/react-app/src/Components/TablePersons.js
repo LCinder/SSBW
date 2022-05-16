@@ -8,6 +8,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Button from "@mui/material/Button";
 import {useState} from "react";
+import Typography from "@mui/material/Typography";
 
 
 
@@ -20,15 +21,24 @@ export default function TablePersons(props) {
     .then(() => {
       const newPersons = persons.filter(person => person.id !== id);
       setPerson(newPersons)
-      return (
-          <TablePersons data={newPersons}/>
-      )
     })
     .catch((error) => console.log(error))
   }
 
+  function loadPersons() {
+    fetch(`http://localhost:8000/api/load`)
+    .then(() => {
+      window.location.reload();
+    })
+    .catch((error) => console.log(error))
+  }
+
+
   return (
-    <div>
+    <div style={{margin: "5%"}}>
+        <Typography variant="h4" gutterBottom style={{justifyContent: "center", display: "flex", }} alignItems="center">
+          Persons
+        </Typography>
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
             <TableHead>
@@ -60,7 +70,8 @@ export default function TablePersons(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Button variant="contained" href={`/persons/add`}>Add Person</Button>
+        <Button variant="contained" href={`/persons/add`} style={{background: "#ef5350", marginTop: "5%"}}>Add Person</Button>
+        <Button variant="contained" onClick={() => loadPersons()} style={{background: "#ef5350", marginTop: "5%"}}>Load Persons</Button>
     </div>
   );
 }

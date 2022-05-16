@@ -18,13 +18,13 @@ export default function PersonCard(props) {
     return (
         <div>
             <Navbar/>
-            <Box display="flex" justifyContent="center" alignItems="center" sx={{ display: "block" }}>
+            <Box style={{justifyContent: "center", display: "flex", marginTop: "5%"}} alignItems="center">
                 <Card>
                   <CardMedia
                     component="img"
-                    height="140"
-                    image="/static/images/cards/contemplative-reptile.jpg"
-                    alt="green iguana"
+                    height="500"
+                    image={`http://localhost:8000/api/person/${person.id}/image`}
+                    alt="person image"
                   />
                   <CardContent>
                     <Typography gutterBottom variant="h5" component="div">

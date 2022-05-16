@@ -82,7 +82,7 @@ export default function PersonForm(props) {
         <div>
             <Navbar/>
             <Box display="flex" justifyContent="center" alignItems="center" sx={{ display: "block" }}>
-                <form onSubmit={putData}>
+                <form onSubmit={putData} style={{margin: "3%"}}>
                     <TextField
                       label="Firstname"
                       name="firstname"
@@ -108,7 +108,7 @@ export default function PersonForm(props) {
                       value={newPerson.email}
                       onChange={handleInputChange}
                     />
-                    <Button variant="contained" onClick={submit}>Edit</Button>
+                    <Button variant="contained" onClick={submit} style={{justifyContent: "center", display: "flex", background: "#ef5350"}} alignItems="center">Edit</Button>
                 </form>
           </Box>
         </div>
