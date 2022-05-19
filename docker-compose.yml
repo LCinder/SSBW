@@ -1,7 +1,7 @@
 services:
   web:
     build: .
-    command: python manage.py runserver 0.0.0.0:8000
+    command: gunicorn web.wsgi:application --bind 0.0.0.0:8000 #python manage.py runserver 0.0.0.0:8000
     volumes:
       - .:/src
     ports:
@@ -23,3 +23,14 @@ services:
       - 8081:8081
     depends_on:
       - mongo
+
+  nginx:
+    image: nginx:alpine
+    ports:
+      - 80:80
+      - 443:443
+    volumes:
+      - ./conf:/etc/nginx/conf.d
+      - ./app/deploy_build:/var/www/
+    #depends_on:
+    #  - web
