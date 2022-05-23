@@ -27,7 +27,7 @@ function Copyright() {
 export default function Main() {
     const [data, setData] = useState([
       createData("Task 1", "Complete"),
-      createData("Task 2", "Incomplete"),
+      createData("Task 2", "Complete"),
       createData("Task 3", "Complete"),
       createData("Task 4", "Complete"),
     ]);

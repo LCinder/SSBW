@@ -10,6 +10,7 @@ export default function FetchPerson(props) {
     const params = useParams();
     const personId = params.personId;
     const type = props.type;
+    const URL = `http://localhost/app/api/person/${personId}`;
 
     const [isLoading, setIsLoading] = useState(true)
     const [person, setPerson] = useState(null)
@@ -32,7 +33,7 @@ export default function FetchPerson(props) {
 
     useEffect(() => {
         if (type === "put" || type === "get") {
-            fetch(`http://localhost:8000/api/person/${personId}`)
+            fetch(URL)
             .then((response) => response.json())
             .then(person => {
                 setPerson(person)

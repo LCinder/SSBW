@@ -10,18 +10,15 @@ import FetchPerson from "./Components/FetchPerson";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
-    <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<Main/>}/>
-            <Route path="persons" element={<FetchPersons/>}>
-            </Route>
-            <Route path="/persons/:personId" element={<FetchPerson type={"get"}/>}/>
-            <Route path="/persons/:personId/edit" element={<FetchPerson type={"put"}/>}/>
-            <Route path="/persons/add" element={<FetchPerson type={"post"}/>}/>
-          </Routes>
-      </BrowserRouter>
-  </React.StrictMode>
+<BrowserRouter>
+      <Routes>
+        <Route exact path="/" element={<Main/>}/>
+        <Route path="/persons" element={<FetchPersons/>}/>
+        <Route path="/persons/:personId" element={<FetchPerson type={"get"}/>}/>
+        <Route path="/persons/:personId/edit" element={<FetchPerson type={"put"}/>}/>
+        <Route path="/persons/add" element={<FetchPerson type={"post"}/>}/>
+      </Routes>
+  </BrowserRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

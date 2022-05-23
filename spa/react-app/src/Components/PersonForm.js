@@ -10,8 +10,8 @@ export default function PersonForm(props) {
 
     const person = props.data;
     const type = props.type;
-    console.log(props)
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const URL_POST = `http://localhost/app/api/person`;
 
     let initialPerson = {}
 
@@ -38,7 +38,9 @@ export default function PersonForm(props) {
 
     function putData() {
         console.log(newPerson)
-        fetch(`http://localhost:8000/api/person/${person.id}`, {
+        const URL_PUT = `http://localhost/app/api/person/${person.id}`;
+
+        fetch(URL_PUT, {
             method: "PUT",
             headers: {
                 "Content-Type": "application/json",
@@ -55,7 +57,7 @@ export default function PersonForm(props) {
 
     function postData() {
         console.log(newPerson)
-        fetch(`http://localhost:8000/api/person`, {
+        fetch(URL_POST, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

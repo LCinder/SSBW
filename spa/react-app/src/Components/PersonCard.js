@@ -13,7 +13,7 @@ import Box from "@mui/material/Box";
 export default function PersonCard(props) {
 
     const person = props.data;
-    console.log(props)
+    const URL_IMAGE = `http://localhost/app/api/person/${person.id}/image`;
 
     return (
         <div>
@@ -23,7 +23,7 @@ export default function PersonCard(props) {
                   <CardMedia
                     component="img"
                     height="500"
-                    image={`http://localhost:8000/api/person/${person.id}/image`}
+                    image={URL_IMAGE}
                     alt="person image"
                   />
                   <CardContent>

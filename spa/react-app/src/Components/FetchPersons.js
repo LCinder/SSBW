@@ -9,6 +9,7 @@ import TablePersons from "./TablePersons";
 export default function FetchPersons() {
     const [isLoading, setIsLoading] = useState(true)
     const [persons, setPerson] = useState(null)
+    const URL = "http://localhost/app/api/person";
 
     function loading() {
         if (isLoading)
@@ -22,7 +23,7 @@ export default function FetchPersons() {
     }
 
     useEffect(() => {
-        fetch("http://localhost:8000/api/person")
+        fetch(URL)
         .then((response) => response.json())
         .then(persons => {
             console.log(persons)
