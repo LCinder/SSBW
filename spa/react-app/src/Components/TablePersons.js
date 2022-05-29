@@ -56,7 +56,7 @@ export default function TablePersons(props) {
     fetch(URL_LOAD)
     .then(() => {
       setIsLoading(false)
-      navigate("/persons")
+      window.location.reload(false);
     })
     .catch((error) => console.log(error))
   }
