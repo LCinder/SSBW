@@ -91,12 +91,12 @@ export default function TablePersons(props) {
                   <TableCell align="right">{row.lastname}</TableCell>
                   <TableCell align="right">{row.email}</TableCell>
                   <TableCell align="right">
-                    <Button variant="outlined" color={"success"} href={`/persons/${row.id}`}>
+                    <Button variant="outlined" color={"success"} href={`/#/persons/${row.id}`}>
                       Go to profile
                     </Button>
                   </TableCell>
                   <TableCell align="right">
-                    <Button variant="outlined" color={"success"} href={`/persons/${row.id}/edit`}>
+                    <Button variant="outlined" color={"success"} href={`/#/persons/${row.id}/edit`}>
                       Edit
                     </Button>
                     <Button variant="contained" variant="outlined" color={"error"} onClick={() => deletePerson(row.id)}>Delete</Button>
@@ -107,7 +107,7 @@ export default function TablePersons(props) {
           </Table>
         </TableContainer>
         <Button variant="contained" style={{background: "#ef5350", marginTop: "5%"}}>
-           <Link to={`/persons/add`} style={{ textDecoration: "none"}}>Add Person</Link>
+           <Link to={`/persons/add`} style={{ textDecoration: "none", color: "#fff"}}>Add Person</Link>
         </Button>
         <Button variant="contained" onClick={() => onButtonClick()} style={{background: "#ef5350", marginTop: "5%"}}>Load Persons</Button>
     </div>
