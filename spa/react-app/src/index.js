@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import Main from './Components/Main';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter, Route, Routes} from "react-router-dom";
+import {BrowserRouter, HashRouter, Route, Routes} from "react-router-dom";
 import FetchPersons from "./Components/FetchPersons";
 import PersonForm from "./Components/PersonForm";
 import FetchPerson from "./Components/FetchPerson";
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-<BrowserRouter>
+<HashRouter>
       <Routes>
         <Route exact path="/" element={<Main/>}/>
         <Route path="/persons" element={<FetchPersons/>}/>
@@ -18,7 +18,7 @@ root.render(
         <Route path="/persons/:personId/edit" element={<FetchPerson type={"put"}/>}/>
         <Route path="/persons/add" element={<FetchPerson type={"post"}/>}/>
       </Routes>
-  </BrowserRouter>
+  </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function
