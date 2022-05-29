@@ -65,9 +65,9 @@ export default function TablePersons(props) {
   return (
     <div style={{margin: "5%"}}>
 
-        <Typography variant="h4" gutterBottom style={{justifyContent: "center", display: "flex", }} alignItems="center">
-          Persons
-        </Typography>
+      <Typography variant="h4" gutterBottom style={{justifyContent: "center", display: "flex", }} alignItems="center">
+        Persons
+      </Typography>
       {loading()}
         <TableContainer component={Paper}>
           <Table sx={{ minWidth: 650 }} aria-label="simple table">
